@@ -1,0 +1,11 @@
+[33mcommit d94b91a4695ac308b155c4bd5f9cb9c3930ebfd5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: tanzee1a <126806377+tanzee1a@users.noreply.github.com>
+Date:   Sun Jul 6 10:59:11 2025 -0500
+
+    Remove large file
+
+[33mcommit bd17403148f311cc9f20c9df271ca488bd8e2100[m
+Author: tanzee1a <126806377+tanzee1a@users.noreply.github.com>
+Date:   Sat Jul 5 14:40:55 2025 -0500
+
+    Initial commit: setup bot folder structure
