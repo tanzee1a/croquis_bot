@@ -160,9 +160,13 @@ async def run_custom_discord_session():
 
 
 # --- MAIN EXECUTION ---
+
+# This is the NEW code
 def run_flask_app():
-    # Runs the Flask app in a separate thread
-    app.run(debug=True, port=5000, use_reloader=False)
+    # Get the port from the environment variable Render sets
+    port = int(os.environ.get('PORT', 5000))
+    # Runs the Flask app on the correct host and port
+    app.run(host='0.0.0.0', port=port)
 
 if __name__ == '__main__':
     # Run Flask in its own thread
