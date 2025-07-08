@@ -25,7 +25,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 # Flask app initialization
 app = Flask(__name__)
-CORS(app) # Allow cross-origin requests
+CORS(app, resources={r"/*": {"origins": "https://croquisbot.netlify.app"}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # --- SESSION MANAGEMENT ---

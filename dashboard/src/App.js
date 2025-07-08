@@ -21,10 +21,7 @@ function App() {
     formData.append('count', count);
 
     try {
-      const response = await fetch('http://localhost:5000/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await fetch('https://croquis-bot.onrender.com/upload', { /* ... */ });
       const result = await response.json();
       console.log(result);
       alert('Images uploaded!');
@@ -42,9 +39,7 @@ function App() {
       return;
     }
     try {
-      const response = await fetch('http://localhost:5000/start-session', {
-        method: 'POST',
-      });
+      const response = await fetch('https://croquis-bot.onrender.com/start-session', { /* ... */ });
       const result = await response.json();
       console.log(result);
       alert('Croquis session started in Discord!');
