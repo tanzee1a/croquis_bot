@@ -46,19 +46,25 @@ async def on_ready():
     await bot.tree.sync() # Sync slash commands
 
 # Functionality 1: Solo/Random Session via Slash Command
-@bot.tree.command(name="start_solo_croquis", description="Start a quick session with random images.")
-async def start_solo_croquis(interaction: discord.Interaction, num_images: int = 5, timer_duration: int = 30):
+@bot.tree.command(name="start_random_croquis", description="Start a quick session with random images.")
+async def start_random_croquis(interaction: discord.Interaction, num_images: int = 5, timer_duration: int = 30):
     global session_active
     if session_active:
         await interaction.response.send_message("A session is already in progress. Please wait for it to complete.", ephemeral=True)
         return
+    
+    # 1. Defer the response immediately to avoid the 3-second timeout
+    await interaction.response.defer()
 
     session_active = True
-    await interaction.response.send_message(f"Starting a solo croquis session with {num_images} images for {timer_duration} seconds each!")
     
+    # 2. Use interaction.followup.send for the first message after deferring
+    await interaction.followup.send(f"Starting a random croquis session with {num_images} images for {timer_duration} seconds each!")
+    # ... rest of the function
+
     image_pool = [os.path.join(STATIC_IMAGE_FOLDER, img) for img in os.listdir(STATIC_IMAGE_FOLDER) if img.endswith(('.png', '.jpg', '.jpeg'))]
     if not image_pool:
-        await interaction.followup.send("No static images found for a solo session.")
+        await interaction.followup.send("No static images found for a random session.")
         session_active = False
         return
         
@@ -75,7 +81,7 @@ async def start_solo_croquis(interaction: discord.Interaction, num_images: int =
             await channel.send("Time's up! Next image...")
 
     if session_active:
-        await channel.send("Solo session complete! 🎉")
+        await channel.send("Croquis session complete! 🎉")
     session_active = False
 
 @bot.tree.command(name="cancel", description="Cancel the current croquis session.")

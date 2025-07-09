@@ -1,7 +1,6 @@
 __pycache__/
 .env
 bot_token.txt
-images/
 *.zip
 backend/uploads/
 node_modules/
