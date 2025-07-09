@@ -13,7 +13,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 CHANNEL_ID = int(os.getenv("DISCORD_CHANNEL_ID"))
 UPLOAD_FOLDER = 'uploads'
-STATIC_IMAGE_FOLDER = os.path.join("..", "images") # For the slash command
+STATIC_IMAGE_FOLDER = 'images'
 
 # --- BOT & FLASK INITIALIZATION ---
 # Define bot intents
