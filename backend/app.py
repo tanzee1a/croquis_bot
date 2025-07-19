@@ -23,11 +23,9 @@ intents.message_content = True # Necessary for some commands
 # Use commands.Bot to allow for both slash commands and client events
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-# Flask app initialization
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://croquisbot.netlify.app"}})
+CORS(app, resources={r"/*": {"origins": ["https://croquisbot.netlify.app", "http://localhost:3000"]}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 # --- SESSION MANAGEMENT ---
 # A simple in-memory flag to prevent multiple sessions
 session_active = False
