@@ -17,16 +17,19 @@ import {
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 
+
 function App() {
-  // ... (all your state and functions are the same)
   const [images, setImages] = useState([]);
   const [timer, setTimer] = useState(30);
   const [uploaded, setUploaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  // NEW: State to manage the file input specifically
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleImageChange = (e) => {
     const newFiles = Array.from(e.target.files);
+    setSelectedFiles(newFiles); // Update the new state
     setImages((prevImages) => [...prevImages, ...newFiles]);
     e.target.value = null;
   };
@@ -42,8 +45,8 @@ function App() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    
-    // This validation was faulty and has been corrected.
+
+    // Correctly check if any images are in our list
     if (images.length === 0) {
       toast({
         title: 'No images selected!',
@@ -147,7 +150,7 @@ function App() {
             type="file"
             multiple
             accept="image/*"
-            onChange={handleImageChange}
+            onChange={handleImagechange}
             p={1.5}
           />
         </FormControl>
