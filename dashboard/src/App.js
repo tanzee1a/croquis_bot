@@ -40,10 +40,10 @@ function App() {
     setUploaded(false);
   };
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
+  // CHANGE #1: The function no longer needs the 'e' event object
+  const handleUpload = async () => {
+    // e.preventDefault() is no longer needed
 
-    // Correctly check if any images are in our list
     if (images.length === 0) {
       toast({
         title: 'No images selected!',
@@ -126,16 +126,14 @@ function App() {
   };
 
   return (
-    // We no longer need the <Box> with bgImage, the theme handles it now
     <Container centerContent p={8}>
+      {/* CHANGE #2: The VStack is no longer a form and has no onSubmit */}
       <VStack
-        bg="rgba(255, 255, 255, 0.85)" // Translucent white box
+        bg="rgba(255, 255, 255, 0.85)"
         p={8}
         borderRadius="lg"
         boxShadow="xl"
         spacing={6}
-        as="form"
-        onSubmit={handleUpload}
         width="100%"
         maxWidth="480px"
       >
@@ -187,25 +185,26 @@ function App() {
           </NumberInput>
         </FormControl>
         
+        {/* CHANGE #3: The button is no longer type="submit" and has its own onClick */}
         <Button
-          type="submit"
-          bg="brand.primary" // Use your new primary color
+          onClick={handleUpload}
+          bg="brand.primary"
           color="gray.800"
           size="lg"
           width="100%"
           isLoading={isLoading}
-          _hover={{ bg: 'brand.secondary' }} // Use secondary color on hover
+          _hover={{ bg: 'brand.secondary' }}
         >
           Upload Images
         </Button>
         <Button
           onClick={handleStartSession}
-          bg="brand.secondary" // Use your new secondary color
+          bg="brand.secondary"
           color="gray.800"
           size="lg"
           width="100%"
           disabled={!uploaded || isLoading}
-          _hover={{ bg: 'brand.primary' }} // Use primary color on hover
+          _hover={{ bg: 'brand.primary' }}
         >
           Start Session in Discord
         </Button>
