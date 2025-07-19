@@ -150,7 +150,7 @@ function App() {
             type="file"
             multiple
             accept="image/*"
-            onChange={handleImagechange}
+            onChange={handleImageChange}
             p={1.5}
           />
         </FormControl>
