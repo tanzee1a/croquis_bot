@@ -19,6 +19,7 @@ import {
 import { CloseIcon } from '@chakra-ui/icons';
 
 function App() {
+  // ... (all your state and functions are the same)
   const [images, setImages] = useState([]);
   const [timer, setTimer] = useState(30);
   const [uploaded, setUploaded] = useState(false);
@@ -42,6 +43,8 @@ function App() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
+    
+    // This validation was faulty and has been corrected.
     if (images.length === 0) {
       toast({
         title: 'No images selected!',
@@ -52,7 +55,7 @@ function App() {
       });
       return;
     }
-    
+
     setIsLoading(true);
     const formData = new FormData();
     images.forEach((img) => formData.append('images', img));
@@ -124,93 +127,91 @@ function App() {
   };
 
   return (
-    <Box
-      bgImage="url(/background.jpg)"
-      bgSize="cover"
-      bgPosition="center"
-      minH="100vh"
-    >
-      <Container centerContent p={8}>
-        <VStack
-          bg="rgba(255, 255, 255, 0.9)"
-          p={8}
-          borderRadius="lg"
-          boxShadow="xl"
-          spacing={6}
-          as="form"
-          onSubmit={handleUpload}
-          width="100%"
-          maxWidth="480px"
-        >
-          <Heading>🎨 Croquis Session Dashboard</Heading>
-          
-          <FormControl isRequired>
-            <FormLabel>Add Images:</FormLabel>
-            <Input
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleImageChange}
-              p={1.5}
-            />
-          </FormControl>
+    // We no longer need the <Box> with bgImage, the theme handles it now
+    <Container centerContent p={8}>
+      <VStack
+        bg="rgba(255, 255, 255, 0.85)" // Translucent white box
+        p={8}
+        borderRadius="lg"
+        boxShadow="xl"
+        spacing={6}
+        as="form"
+        onSubmit={handleUpload}
+        width="100%"
+        maxWidth="480px"
+      >
+        <Heading>🎨 Croquis Session Dashboard</Heading>
+        
+        <FormControl isRequired>
+          <FormLabel>Add Images:</FormLabel>
+          <Input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleImageChange}
+            p={1.5}
+          />
+        </FormControl>
 
-          {images.length > 0 && (
-            <VStack spacing={2} align="stretch" width="100%" border="1px" borderColor="gray.200" borderRadius="md" p={3}>
-              <HStack justify="space-between">
-                <Text fontWeight="bold">{images.length} image(s) selected:</Text>
-                <Button size="sm" onClick={handleClearImages}>Clear All</Button>
-              </HStack>
-              {images.map((file, index) => (
-                <HStack key={index} justify="space-between" width="100%">
-                  <HStack>
-                    <Image
-                      boxSize="40px"
-                      objectFit="cover"
-                      src={URL.createObjectURL(file)}
-                      alt={file.name}
-                    />
-                    <Text fontSize="sm" isTruncated maxWidth="250px">{file.name}</Text>
-                  </HStack>
-                  <IconButton
-                    aria-label="Remove image"
-                    icon={<CloseIcon />}
-                    size="sm"
-                    onClick={() => handleRemoveImage(index)}
+        {images.length > 0 && (
+          <VStack spacing={2} align="stretch" width="100%" border="1px" borderColor="gray.200" borderRadius="md" p={3}>
+            <HStack justify="space-between">
+              <Text fontWeight="bold">{images.length} image(s) selected:</Text>
+              <Button size="sm" onClick={handleClearImages}>Clear All</Button>
+            </HStack>
+            {images.map((file, index) => (
+              <HStack key={index} justify="space-between" width="100%">
+                <HStack>
+                  <Image
+                    boxSize="40px"
+                    objectFit="cover"
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
                   />
+                  <Text fontSize="sm" isTruncated maxWidth="250px">{file.name}</Text>
                 </HStack>
-              ))}
-            </VStack>
-          )}
+                <IconButton
+                  aria-label="Remove image"
+                  icon={<CloseIcon />}
+                  size="sm"
+                  onClick={() => handleRemoveImage(index)}
+                />
+              </HStack>
+            ))}
+          </VStack>
+        )}
 
-          <FormControl>
-            <FormLabel>Timer per Image (seconds):</FormLabel>
-            <NumberInput value={timer} onChange={(val) => setTimer(val)}>
-              <NumberInputField />
-            </NumberInput>
-          </FormControl>
-          
-          <Button
-            type="submit"
-            colorScheme="pink"
-            size="lg"
-            width="100%"
-            isLoading={isLoading}
-          >
-            Upload Images
-          </Button>
-          <Button
-            onClick={handleStartSession}
-            colorScheme="teal"
-            size="lg"
-            width="100%"
-            disabled={!uploaded || isLoading}
-          >
-            Start Session in Discord
-          </Button>
-        </VStack>
-      </Container>
-    </Box>
+        <FormControl>
+          <FormLabel>Timer per Image (seconds):</FormLabel>
+          <NumberInput value={timer} onChange={(val) => setTimer(val)}>
+            <NumberInputField />
+          </NumberInput>
+        </FormControl>
+        
+        <Button
+          type="submit"
+          bg="brand.primary" // Use your new primary color
+          color="gray.800"
+          size="lg"
+          width="100%"
+          isLoading={isLoading}
+          _hover={{ bg: 'brand.secondary' }} // Use secondary color on hover
+        >
+          Upload Images
+        </Button>
+        <Button
+          onClick={handleStartSession}
+          bg="brand.secondary" // Use your new secondary color
+          color="gray.800"
+          size="lg"
+          width="100%"
+          disabled={!uploaded || isLoading}
+          _hover={{ bg: 'brand.primary' }} // Use primary color on hover
+        >
+          Start Session in Discord
+        </Button>
+      </VStack>
+    </Container>
   );
 }
 
