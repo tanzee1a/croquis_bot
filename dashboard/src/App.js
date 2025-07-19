@@ -24,12 +24,9 @@ function App() {
   const [uploaded, setUploaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
-  // NEW: State to manage the file input specifically
-  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleImageChange = (e) => {
     const newFiles = Array.from(e.target.files);
-    setSelectedFiles(newFiles); // Update the new state
     setImages((prevImages) => [...prevImages, ...newFiles]);
     e.target.value = null;
   };
