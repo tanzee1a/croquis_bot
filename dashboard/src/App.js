@@ -40,9 +40,7 @@ function App() {
     setUploaded(false);
   };
 
-  // CHANGE #1: The function no longer needs the 'e' event object
   const handleUpload = async () => {
-    // e.preventDefault() is no longer needed
 
     if (images.length === 0) {
       toast({
@@ -127,7 +125,6 @@ function App() {
 
   return (
     <Container centerContent p={8}>
-      {/* CHANGE #2: The VStack is no longer a form and has no onSubmit */}
       <VStack
         bg="rgba(255, 255, 255, 0.85)"
         p={8}
@@ -185,7 +182,6 @@ function App() {
           </NumberInput>
         </FormControl>
         
-        {/* CHANGE #3: The button is no longer type="submit" and has its own onClick */}
         <Button
           onClick={handleUpload}
           bg="brand.primary"
